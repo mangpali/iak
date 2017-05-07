@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1.2"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="0.2"
+        android:src="@drawable/art_clear"/>
+    <LinearLayout
+        android:layout_marginStart="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.6">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunday"
+            android:textSize="28sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunny"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.4"
+        android:weightSum="0.5">
+        <TextView
+            android:gravity="end"
+            android:layout_weight="0.25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="34\u00b0"
+            android:textSize="26sp"/>
+        <TextView
+            android:gravity="end"
+            android:layout_weight="0.25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29\u00b0"
+            android:textSize="26sp"/>
+
+    </LinearLayout>
+</LinearLayout>
