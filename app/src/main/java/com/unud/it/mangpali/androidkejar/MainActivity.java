@@ -14,11 +14,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.unud.it.mangpali.androidkejar.adapter.ListForecastAdapter;
+import com.unud.it.mangpali.androidkejar.model.DailyForecast;
 import com.unud.it.mangpali.androidkejar.model.DummyForecast;
+import com.unud.it.mangpali.androidkejar.model.WeatherItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.rv_forecast)RecyclerView recycler;
 
     private ListForecastAdapter adapter;
-    private List<DummyForecast> list = new ArrayList<>();
+    private List<WeatherItem> list = new ArrayList<>();
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +48,18 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
 
-        populateData();
-    }
-
-    private void populateData(){
-        for(int i=0;i<20;i++){
-            DummyForecast dummy = new DummyForecast("Sunday","Rainy",23,18,123);
-            list.add(dummy);
-        }
-        adapter.notifyDataSetChanged();
         getData();
+//           populateData();
     }
+//
+//    private void populateData(){
+//        for(int i=0;i<20;i++){
+//            DummyForecast dummy = new DummyForecast("Sunday","Rainy",23,18,123);
+//            list.add(dummy);
+//        }
+//        adapter.notifyDataSetChanged();
+//        getData();
+//    }
 
     private void getData(){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -66,6 +72,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG,response);
+                        try {
+                            DailyForecast dailyForecast = gson.fromJson(response,DailyForecast.class);
+                            Log.d("asd",dailyForecast.toString());
+
+                            for (WeatherItem item : dailyForecast.getList()) {
+                                list.add(item);
+                            }
+                            adapter.notifyDataSetChanged();
+
+                        }catch (Exception e){
+                            Log.e("Error",e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener() {

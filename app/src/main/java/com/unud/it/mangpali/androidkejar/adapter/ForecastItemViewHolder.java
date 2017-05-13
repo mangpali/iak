@@ -7,7 +7,12 @@ import android.widget.TextView;
 
 import com.unud.it.mangpali.androidkejar.R;
 import com.unud.it.mangpali.androidkejar.model.DummyForecast;
+import com.unud.it.mangpali.androidkejar.model.WeatherItem;
+import com.unud.it.mangpali.androidkejar.utilities.Utils;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +33,14 @@ public class ForecastItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
-    public void bind(DummyForecast data){
+    public void bind(WeatherItem data){
 
-        day.setText(data.getDay());
-        weather.setText(data.getWeather());
-        maxtemp.setText(String.valueOf(data.getMaxTemp())+"\u00b0");
-        mintemp.setText(String.valueOf(data.getMinTemp())+"\u00b0");
+        img.setImageResource(Utils.getSmallArtResourceIdForWeatherCondition(data.getWeather().get(0).getId()));
+
+        day.setText(data.getReadableDay());
+        weather.setText(data.getWeather().get(0).getMain());
+        maxtemp.setText(data.getTemp().getResolvedTemp(data.getTemp().getMax()));
+        mintemp.setText(data.getTemp().getResolvedTemp(data.getTemp().getMin()));
 
     }
 }

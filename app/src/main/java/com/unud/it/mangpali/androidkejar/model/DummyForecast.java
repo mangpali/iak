@@ -12,6 +12,7 @@ public class DummyForecast {
     private int weatherID;
 
     public DummyForecast(String day, String weather, int maxTemp, int minTemp, int weatherID) {
+
         this.day = day;
         this.weather = weather;
         this.maxTemp = maxTemp;
